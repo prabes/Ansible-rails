@@ -1,0 +1,16 @@
+---
+# tasks file for common
+- ping:
+
+- name: Install required packages
+  apt: name={{ item }} update_cache=yes state= {{latest}}
+  loop:
+    - curl
+    - git-core  
+    - tmux
+    - htop
+    - python3-pip
+    - "{{ required_packages }}"
+  tags: packages
+
+  
