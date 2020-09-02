@@ -1,0 +1,9 @@
+---
+- hosts: webapp
+  become: true 
+  
+  var_files:
+    - app-vars
+
+  roles: 
+   

@@ -1,0 +1,2 @@
+[webapp]
+<target_machine_ip> ansible_user=<target_machine_user>
