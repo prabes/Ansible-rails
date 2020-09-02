@@ -11,6 +11,7 @@ rvm_default_ruby_version: 'ruby-2.6.0'
 rvm_bundler_version: '1.10.6' # bundler version  
 =======
 
+<<<<<<< HEAD
 # postgresql
 
 postgresql_version: "9.6"
@@ -18,4 +19,11 @@ postgresql_db_user: deploy_postgresql_user
 postgresql_db_name: test_production
 
 
+<<<<<<< HEAD
 >>>>>>> New Role: PostgreSQL
+=======
+=======
+# Common 
+required_packages: []
+>>>>>>> New Role: common
+>>>>>>> New Role: common
