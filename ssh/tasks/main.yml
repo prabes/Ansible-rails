@@ -1,0 +1,6 @@
+---
+- git: 
+    repo: 'git@bitbucket.org:dprabes/works-documented.git'
+    dest: /home/test
+    ssh_opts: -o StrictHostKeyChecking=no
+    version: HEAD
