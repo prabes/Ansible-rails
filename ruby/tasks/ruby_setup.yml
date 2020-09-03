@@ -1,0 +1,51 @@
+---
+- name: Detect if rubies are installed
+  command: "{{ rvm_rvm }} {{ item }} do true"
+  changed_when: False
+  failed_when: False
+  register: detect_rubies
+  with_items: "{{ rvm_rubies }}"
+  when: rvm_rubies
+  tags: ruby
+
+- name: Install rubies
+  command: "{{ rvm_rvm }} install {{ item.item }}"
+  when: rvm_rubies and item.rc !=0
+  with_items: "{{ detect_rubies.results }}"
+  become_user: "{{ rvm_user }}"
+  tags: ruby
+
+- name: Detect default ruby version
+  command: '{{ rvm_rvm }} alias list default'
+  changed_when: False
+  register: detect_default_ruby_version
+  tags: ruby
+
+- name: Select default ruby
+  command: '{{ rvm_rvm }} alias create default {{ rvm_default_ruby_version }}'
+  when: detect_default_ruby_version.stdout == '' or
+        rvm_default_ruby_version not in detect_default_ruby_version.stdout
+  tags: ruby
+
+- name: Install bundler if not installed
+  shell: >
+    {{ rvm_install_path }}/wrappers/{{ item }}/gem list
+    | if ! grep "^bundler " ; then {{ rvm_install_path }}/wrappers/{{ item }}/gem install bundler -v {{rvm_bundler_version}} ; fi
+  args:
+    creates: '{{ rvm_install_path }}/wrappers/{{ item }}/bundler'
+  with_items: '{{ rvm_rubies }}'
+  register: bundler_install
+  changed_when: '"Successfully installed bundler" in bundler_install.stdout'
+  tags: ruby1
+
+- name: Symlink ruby related binaries on the system path
+  file:
+    state: 'link'
+    src: '{{ rvm_install_path }}/wrappers/default/{{ item }}'
+    dest: '{{ rvm_symlink_to }}/{{ item }}'
+    owner: 'root'
+    group: 'root'
+  when: not '--user-install' in rvm_install_flags
+  with_items: '{{ rvm_symlink_binaries }}'
+  tags: ruby1
+

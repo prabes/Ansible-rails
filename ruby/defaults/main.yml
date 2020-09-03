@@ -1,0 +1,33 @@
+---
+# RVM defaults
+rvm_temp_download_path: /tmp
+rvm_install_path: '/usr/local/rvm'
+rvm_user: 'root'
+
+rvm_latest_installer: 'https://raw.githubusercontent.com/wayneeseguin/rvm/master/binscripts/rvm-installer'
+rvm_version: 'stable'
+rvm_gpg_keys: '409B6B1796C275462A1703113804BB82D39DC0E3 7D2BAF1CF37B13E2069D6956105BD0E739499BDB'
+rvm_gpg_key_server: 'hkp://keys.gnupg.net'
+rvm_autolib_mode: 3
+rvm_install_flags: '--auto-dotfiles'
+
+
+# Ruby defaults
+rvm_rubies:
+  - 'ruby-2.2.2'
+
+rvm_symlink_binaries:
+  - 'bundle'
+  - 'bundler'
+  - 'gem'
+  - 'irb'
+  - 'rake'
+  - 'rdoc'
+  - 'ri'
+  - 'ruby'
+
+rvm_symlink_to: '/usr/local/bin'
+
+rvm_default_ruby_version: 'ruby-2.2.2'
+rvm_bundler_version: '1.10.6'
+

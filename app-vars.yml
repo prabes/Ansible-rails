@@ -1,1 +1,10 @@
 ---
+# Ruby
+
+rvm_rvm: '{{ rvm_install_path }}/bin/rvm' # path for rvm
+
+rvm_rubies:
+  - 'ruby-2.6.0'
+
+rvm_default_ruby_version: 'ruby-2.6.0' 
+rvm_bundler_version: '1.10.6' # bundler version  

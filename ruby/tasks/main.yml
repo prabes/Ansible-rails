@@ -1,0 +1,3 @@
+---
+- include: 'rvm_setup.yml'
+- include: 'ruby_setup.yml'
