@@ -1,0 +1,39 @@
+---
+postgresql_version: "9.5"
+
+postgresql_packages:
+  - "postgresql-{{ postgresql_version }}"
+
+postgresql_python_packages:
+  - "python3-psycopg2"
+  - "python3-apt" 
+
+postgresql_apt_url: "https://apt.postgresql.org/pub/repos/apt"
+postgresql_apt_key: "{{ postgresql_apt_url }}/ACCC4CF8.asc"
+postgresql_apt_repo: "deb {{ postgresql_apt_url }} {{ ansible_lsb.codename }}-pgdg main"
+
+postgresql_config_path: /etc/postgresql/{{ postgresql_version }}/main
+postgres_parameters_template: "pg_hba.conf.j2"
+
+# default admin user
+postgresql_admin_user: postgres
+
+# postgresql users 
+postgresql_users:
+- name: "{{ postgresql_db_user | default('') }}"
+  password: "{{ postgresql_db_password | default('') }}"
+  role_attr_flags: "{{postgresql_users_role_attr_flags}}"
+
+# default user attr_flags
+postgresql_users_role_attr_flags: CREATEDB,NOSUPERUSER
+
+# default application database
+postgresql_db_user: '' # name of the user (empty means no user is created)
+postgresql_db_password: ''
+postgresql_db_name: '' # name of the database (empty means no database is created)
+
+# databases 
+postgresql_databases: 
+- name: "{{ postgresql_db_name | default('') }}"
+  owner: "{{ postgresql_db_user | default('') }}"
+

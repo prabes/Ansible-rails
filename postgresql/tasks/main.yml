@@ -1,0 +1,46 @@
+---
+
+- name: Add postgres repo key
+  apt_key:
+    url: "{{ postgresql_apt_key }}"
+
+- name: Add postgres repo
+  apt_repository:
+    repo: "{{ postgresql_apt_repo }}"
+    
+- name: Install required postgres packages
+  apt: 
+    name: "{{ item }}"
+    state: latest
+    update_cache: yes
+  loop:
+    - "{{ postgresql_packages }}"
+    - "{{ postgresql_python_packages }}"
+    - "postgresql-{{postgresql_version}}"
+    - "postgresql-contrib"
+  notify:
+    - restart postgresql
+
+- meta: flush_handlers
+
+- name: Create Users
+  postgresql_user:
+    name: "{{ item.name }}"
+    password: "{{ item.password }}"
+    role_attr_flags: "{{ item.role_attr_flags | default(postgresql_users_role_attr_flags) }}"
+  when: item.name != ''
+  with_items: "{{ postgresql_users }}"
+  become: yes
+  become_user: "{{ postgresql_admin_user }}"
+  tags: psql
+
+- name: Create Databases
+  postgresql_db:
+    name: "{{ item.name }}"
+    owner: "{{ item.owner | default(postgresql_users, true) }}"
+    state: present
+  when: item.name != ''
+  with_items: "{{ postgresql_databases }}"
+  become: yes
+  become_user: "{{ postgresql_admin_user }}"
+  tags: psql
