@@ -1,29 +1,27 @@
 ---
-<<<<<<< HEAD
-# Ruby
 
-rvm_rvm: '{{ rvm_install_path }}/bin/rvm' # path for rvm
+# Common 
+required_packages: []
 
-rvm_rubies:
-  - 'ruby-2.6.0'
-
-rvm_default_ruby_version: 'ruby-2.6.0' 
-rvm_bundler_version: '1.10.6' # bundler version  
-=======
-
-<<<<<<< HEAD
 # postgresql
-
 postgresql_version: "9.6"
 postgresql_db_user: deploy_postgresql_user
 postgresql_db_name: test_production
 
+# Ruby
+rvm_rubies:
+  - 'ruby-2.6.0'
 
-<<<<<<< HEAD
->>>>>>> New Role: PostgreSQL
-=======
-=======
-# Common 
-required_packages: []
->>>>>>> New Role: common
->>>>>>> New Role: common
+rvm_default_ruby_version: 'ruby-2.6.0' 
+rvm_bundler_version: '1.10.6' # bundler version 
+rvm_install_path: '/usr/local/rvm'
+rvm_rvm: '{{ rvm_install_path }}/bin/rvm' # path for rvm binary
+
+# Users and Group
+deploy_user: deploy
+deploy_group: "{{ deploy_user }}"
+deploy_user_path: "/home/{{deploy_user}}"
+
+
+
+

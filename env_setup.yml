@@ -6,6 +6,8 @@
     - app-vars.yml
 
   roles:
-    - ruby
+    - common
     - postgresql
-   
+    - ruby
+    - role: user
+      tags: user

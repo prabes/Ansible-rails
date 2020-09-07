@@ -36,7 +36,7 @@
   with_items: '{{ rvm_rubies }}'
   register: bundler_install
   changed_when: '"Successfully installed bundler" in bundler_install.stdout'
-  tags: ruby1
+  tags: ruby
 
 - name: Symlink ruby related binaries on the system path
   file:
@@ -47,5 +47,5 @@
     group: 'root'
   when: not '--user-install' in rvm_install_flags
   with_items: '{{ rvm_symlink_binaries }}'
-  tags: ruby1
+  tags: ruby
 

@@ -1,9 +1,8 @@
 ---
-# tasks file for common
 - ping:
 
 - name: Install required packages
-  apt: name={{ item }} update_cache=yes state= {{latest}}
+  apt: name={{ item }} update_cache=yes
   loop:
     - curl
     - git-core  
