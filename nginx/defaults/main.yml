@@ -1,0 +1,4 @@
+---
+nginx_conf_template: "nginx-default.conf"
+nginx_https_enabled: false
+ 

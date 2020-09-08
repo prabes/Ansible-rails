@@ -1,5 +1,10 @@
 ---
 
+# Users and Group
+deploy_user: deploy
+deploy_group: "{{ deploy_user }}"
+deploy_user_path: "/home/{{deploy_user}}"
+
 # Common 
 required_packages: []
 
@@ -17,10 +22,7 @@ rvm_bundler_version: '1.10.6' # bundler version
 rvm_install_path: '/usr/local/rvm'
 rvm_rvm: '{{ rvm_install_path }}/bin/rvm' # path for rvm binary
 
-# Users and Group
-deploy_user: deploy
-deploy_group: "{{ deploy_user }}"
-deploy_user_path: "/home/{{deploy_user}}"
+
 
 
 
