@@ -1,9 +1,10 @@
 ---
-- hosts: webapp
+- hosts: webapp-vagrant
   become: true 
   
-  var_files:
-    - app-vars
+  vars_files:
+    - app-vars.yml
 
-  roles: 
+  roles:
+    - nginx 
    
