@@ -7,11 +7,11 @@
 - name: Add postgres repo
   apt_repository:
     repo: "{{ postgresql_apt_repo }}"
-    
+
 - name: Install required postgres packages
   apt: 
     name: "{{ item }}"
-    state: latest
+    state: present
     update_cache: yes
   loop:
     - "{{ postgresql_packages }}"
@@ -44,3 +44,13 @@
   become: yes
   become_user: "{{ postgresql_admin_user }}"
   tags: psql
+
+- name: Allow peer connection
+  copy:
+    src: pg_hbg-default.conf
+    dest: "/etc/postgresql/{{postgresql_version}}/main/pg_hba.conf"
+    owner: postgres
+    group: postgres
+    mode: '0620'
+  notify: restart postgresql
+  tags: pgconf

@@ -19,13 +19,13 @@
     dest: '{{ rvm_temp_download_path }}/rvm-installer.sh'
   when: not rvm_installer.stat.exists
 
-- name: Configure rvm installer
+- name: chmod rvm installer-make excutable
   file:
     path: '{{ rvm_temp_download_path }}/rvm-installer.sh'
     mode: 0755
   when: not rvm_binary.stat.exists
 
-- name: Install rvm
+- name: Install rvm gpg keys
   command: 'gpg --keyserver {{ rvm_gpg_key_server }} --recv-keys {{ rvm_gpg_keys }}'
   changed_when: False
   when: rvm_gpg_keys != ''
