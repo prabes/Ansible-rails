@@ -1,0 +1,6 @@
+---
+- git: 
+    repo: git@bitbucket.org:codysseynepal/parking_backend.git
+    dest: "{{ repo_folder }}"
+    update: yes
+  remote_user: vagrant

@@ -9,10 +9,13 @@
     - role: common
       tags: common
     - role: postgresql
-      tags: common
+      tags: postgresql
     - role: ruby
       tags: ruby
     - role: user
       tags: user
+    - role: git-ssh
+      tags: clone_repo
     - role: nginx 
       tags: nginx
+

@@ -1,4 +1,5 @@
 ---
+app_name: YOUR_APP_NAME
 
 # Users and Group
 deploy_user: deploy
@@ -6,12 +7,15 @@ deploy_group: "{{ deploy_user }}"
 deploy_user_path: "/home/{{deploy_user}}"
 
 # Common 
-required_packages: []
+required_packages: 
+  - tar
+  - unzip
+  - build-essential
 
 # postgresql
 postgresql_version: "9.6"
-postgresql_db_user: deploy_postgresql_user
-postgresql_db_name: test_production
+postgresql_db_user: "{{ deploy_user }}_psql_user"
+postgresql_db_name: "{{ app_name }}_production"
 
 # Ruby
 rvm_rubies:
