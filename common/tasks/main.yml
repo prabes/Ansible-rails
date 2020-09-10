@@ -9,6 +9,9 @@
     - tmux
     - htop
     - python3-pip
+    - tar
+    - unzip
+    - build-essential
     - "{{ required_packages }}"
   tags: packages
 

@@ -5,7 +5,8 @@
     state: present
 
 #{TODO} Create the release and current folders
-- git: 
+- name: Clone git repositories
+  git: 
     repo: git@bitbucket.org:codysseynepal/parking_frontend.git
     dest: "{{ deploy_user_path }}/{{ react_app_name }}"
     version: "{{ deploy_branch_react }}"

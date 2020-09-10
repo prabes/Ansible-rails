@@ -1,2 +1,10 @@
 ---
-required_packages: []
+required_packages: 
+  - curl
+  - git-core  
+  - tmux
+  - htop
+  - python3-pip
+  - tar
+  - unzip
+  - build-essential
