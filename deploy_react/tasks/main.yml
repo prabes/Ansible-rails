@@ -1,0 +1,9 @@
+---
+- name: Dependencies and Build 
+  command:
+    cmd: "{{ item }}"
+    chdir: "{{ react_latest_dir }}"
+  with_items:
+    - git checkout "{{ deploy_branch_react }}"
+    - npm install 
+    - npm run build

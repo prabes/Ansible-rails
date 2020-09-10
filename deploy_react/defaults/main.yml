@@ -1,0 +1,2 @@
+---
+react_latest_dir: '{{ deploy_user_path }}/{{react_app_name}}'
