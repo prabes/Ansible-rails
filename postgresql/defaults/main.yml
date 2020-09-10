@@ -13,7 +13,6 @@ postgresql_apt_key: "{{ postgresql_apt_url }}/ACCC4CF8.asc"
 postgresql_apt_repo: "deb {{ postgresql_apt_url }} {{ ansible_lsb.codename }}-pgdg main"
 
 postgresql_config_path: /etc/postgresql/{{ postgresql_version }}/main
-postgres_parameters_template: "pg_hba.conf.j2"
 
 # default admin user
 postgresql_admin_user: postgres
