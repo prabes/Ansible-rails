@@ -10,31 +10,31 @@
     force: yes
     update_cache: yes
 
-- name: Copy nginx config files
-  copy:
-    src: "{{ item }}"
-    dest: /etc/nginx
-    owner: "{{ deploy_user }}"
-    group: "{{ deploy_group }}"
-  with_items:
-    - nginx.conf
+# - name: Copy nginx config files
+#   copy:
+#     src: "{{ item }}"
+#     dest: /etc/nginx
+#     owner: "{{ deploy_user }}"
+#     group: "{{ deploy_group }}"
+#   with_items:
+#     - nginx.conf
 
-- name: Create a directory if it does not exist
-  file:
-    path: "/etc/nginx/{{ item }}"
-    state: directory
-    owner: "{{ deploy_user }}"
-    group: "{{ deploy_group }}"
-    mode: 0644
-  with_items:
-    - sites-available
-    - sites-enabled
+# - name: Create a directory if it does not exist
+#   file:
+#     path: "/etc/nginx/{{ item }}"
+#     state: directory
+#     owner: "{{ deploy_user }}"
+#     group: "{{ deploy_group }}"
+#     mode: 0644
+#   with_items:
+#     - sites-available
+#     - sites-enabled
 
-- name: Copy nginx configuration 
+- name: Copy default nginx configuration 
   template:
     src: "{{ nginx_conf_template }}"
     dest: "/etc/nginx/sites-available/default"
-    owner: "{{ deploy_user }}"
+    owner: "{{ deploy_user }}"  # {TODO} deploy user may not be good to be owner
     group: "{{ deploy_group }}"
     mode: 0644
 
@@ -44,6 +44,22 @@
     dest: /etc/nginx/sites-enabled/default
     state: link
 
+- name: Copy nginx configuration 
+  template:
+    src: nginx.conf
+    dest: "/etc/nginx/sites-available/{{ react_app_name }}"
+    owner: "{{ deploy_user }}"
+    group: "{{ deploy_group }}"
+    mode: 0644
+  tags: conf
+
+- name: Symlink {{ react_app_name }} site
+  file: 
+    src: /etc/nginx/sites-available/{{ react_app_name }}
+    dest: /etc/nginx/sites-enabled/{{ react_app_name }}
+    state: link
+  tags: conf
+
 - name: Set nginx user
   lineinfile: 
     dest: /etc/nginx/nginx.conf
@@ -51,5 +67,6 @@
     line: "user {{ deploy_user }};"
     state: present
   notify:
-    - Reload nginx
-    - Restart nginx  
+    - Enable NGINX
+  tags: conf
+
