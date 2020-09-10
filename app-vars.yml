@@ -31,7 +31,6 @@ rvm_rvm: '{{ rvm_install_path }}/bin/rvm' # path for rvm binary
 nodejs_version: "12.16.0" 
 
 # Deploy React
-
 react_latest_dir: "{{ deploy_user_path }}/{{ react_app_name }}"
 deploy_branch_react: master
 

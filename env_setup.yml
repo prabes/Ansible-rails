@@ -1,5 +1,5 @@
 ---
-- hosts: webapp-aws
+- hosts: webapp
   become: true 
   
   vars_files:
@@ -17,7 +17,7 @@
     - role: user
       tags: user
 
-- hosts: webapp-aws-ssh
+- hosts: webapp-ForwardAgent
   vars_files:
     - app-vars.yml
   roles:
