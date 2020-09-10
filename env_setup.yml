@@ -1,5 +1,5 @@
 ---
-- hosts: webapp-vagrant
+- hosts: webapp-aws
   become: true 
   
   vars_files:
@@ -12,10 +12,26 @@
       tags: postgresql
     - role: ruby
       tags: ruby
+    - role: nodejs
+      tags: nodejs
     - role: user
       tags: user
+
+- hosts: webapp-aws-ssh
+  vars_files:
+    - app-vars.yml
+  roles:
     - role: git-ssh
       tags: clone_repo
+
+- hosts: webapp-aws
+  become: true
+  vars_files:
+    - app-vars.yml
+  roles:      
+    - role: deploy_react
+      tags: deploy
     - role: nginx 
       tags: nginx
+
 
