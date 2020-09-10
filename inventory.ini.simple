@@ -1,2 +1,14 @@
 [webapp]
-<target_machine_ip> ansible_user=<target_machine_user>
+<ip_address>
+
+[webapp-ForwardAgent]
+<ip_address>
+
+[all:vars]
+ansible_python_interpreter=/usr/bin/python3
+
+[webapp:vars]
+ansible_user= <your_ssh_user>
+
+[webapp-ForwardAgent:vars]
+ansible_user= <your_deploy_user>
