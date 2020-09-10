@@ -1,2 +1,2 @@
 ---
-repo_folder: "{{ deploy_user_path }}/app"
+deploy_branch_react: master

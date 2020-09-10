@@ -1,6 +1,16 @@
 ---
+- name: Ensure git is installed
+  apt:
+    name: git
+    state: present
+
+#{TODO} Create the release and current folders
 - git: 
-    repo: git@bitbucket.org:codysseynepal/parking_backend.git
-    dest: "{{ repo_folder }}"
-    update: yes
-  remote_user: vagrant
+    repo: git@bitbucket.org:codysseynepal/parking_frontend.git
+    dest: "{{ deploy_user_path }}/{{ react_app_name }}"
+    version: "{{ deploy_branch_react }}"
+    accept_hostkey: yes
+    force: yes
+  tags: clone
+
+
